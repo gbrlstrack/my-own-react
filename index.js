@@ -5,7 +5,10 @@ function createNode(nodeName, attributes, ...args) {
 
 function render(reactNode) {
     if (typeof reactNode === "string") return document.createTextNode(reactNode)
-
+    if (typeof reactNode.nodeName === "function") {
+        const componentVNode = reactNode.nodeName(reactNode.attributes || {});
+        return render(componentVNode);
+    }
     let node = document.createElement(reactNode.nodeName)
 
     let attributes = reactNode.attributes || {}
@@ -16,7 +19,12 @@ function render(reactNode) {
     return node
 }
 
-var test = createNode('div', { id: "foo" }, 'Hello!');
-var component = render(test)
+function MeuComponente(props) {
+    return createNode('div', null, `Olá, ${props.nome}!`);
+}
+
 const root = document.getElementById('root');
-root.appendChild(component);
+var vdom = MeuComponente({ nome: "Gabs" })
+var dom = render(vdom)
+
+root.appendChild(dom);
