@@ -19,12 +19,12 @@ function render(reactNode) {
     return node
 }
 
-function MeuComponente(props) {
+function Component(props) {
     return createNode('div', null, `Olá, ${props.nome}!`);
 }
 
 const root = document.getElementById('root');
-var vdom = MeuComponente({ nome: "Gabs" })
+var vdom = Component({ nome: "Gabs" })
 var dom = render(vdom)
 
 root.appendChild(dom);
